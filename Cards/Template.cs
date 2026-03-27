@@ -10,35 +10,29 @@ using UnityEngine;
 
 namespace QuarkiesCustomCardsMod.Cards
 {
-    class BulletVelocity : CustomCard
+    class MyCardName : CustomCard
     {
-		private static void AddAccelerate(GameObject bullet) => bullet.AddComponent<Accelerate>();
-
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
-			gun.reloadTimeMultiplier *= 1.25f; 
-			gun.projectileSpeed *= 0.75f;
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //Edits values on player when card is selected
-			gun.PostAddProperties += AddAccelerate;
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //Run when the card is removed from the player
-			gun.PostAddProperties -= AddAccelerate;
         }
 
 
         protected override string GetTitle()
         {
-            return "Velocity Bullets";
+            return "CardName";
         }
         protected override string GetDescription()
         {
-            return "Your bullet accelerates the farther it travels";
+            return "CardDescription";
         }
         protected override GameObject GetCardArt()
         {
@@ -46,7 +40,7 @@ namespace QuarkiesCustomCardsMod.Cards
         }
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Common;
         }
         protected override CardInfoStat[] GetStats()
         {
@@ -55,65 +49,19 @@ namespace QuarkiesCustomCardsMod.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Bullet Acceleration",
-                    amount = "INSANE",
+                    stat = "Effect",
+                    amount = "No",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-
-				new CardInfoStat()
-				{
-					positive = false,
-					stat = "reload time",
-					amount = "25% more",
-					simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-
-				},
-
-				new CardInfoStat()
-				{
-					positive = false,
-					stat = "starting bullet speed",
-					amount = "25% less",
-					simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-
-				}
+                }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.TechWhite;
+            return CardThemeColor.CardThemeColorType.ColdBlue;
         }
         public override string GetModName()
         {
             return "QuarkiesCustomCardsMod";
         }
     }
-    public class Accelerate : MonoBehaviour
-    {
-		private float timeActive = 0f;
-		private Vector2 initialDirection;
-		private Rigidbody2D rb;
-		
-		public float multiplier = 1.25f;
-		
-
-		void Start()
-		{
-			rb = GetComponent<Rigidbody2D>();
-			initialDirection = rb.velocity.normalized;
-		}
-
-		void Update()
-		{
-			timeActive += Time.deltaTime;
-
-			float speedIncrease = multiplier * timeActive;
-
-			if (rb.velocity.magnitude > 0.1f)
-			{
-				rb.velocity += rb.velocity.normalized * speedIncrease * Time.deltaTime;
-			}
-		}
-	}
 }
-
