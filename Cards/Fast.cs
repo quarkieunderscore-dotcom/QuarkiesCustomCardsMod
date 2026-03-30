@@ -9,14 +9,16 @@ using UnityEngine;
 
 namespace QuarkiesCards.Cards
 {
-    class Template : CustomCard
+    class Fast : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            gun.projectileSpeed *= 1.25f;
             UnityEngine.Debug.Log($"[{QuarkiesCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
+     
             UnityEngine.Debug.Log($"[{QuarkiesCards.ModInitials}][Card] {GetTitle()} has been added to player {player.playerID}.");
         }
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -26,11 +28,11 @@ namespace QuarkiesCards.Cards
 
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Mentally Fast";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Yes Good Good";
         }
         protected override GameObject GetCardArt()
         {
@@ -47,8 +49,8 @@ namespace QuarkiesCards.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Bullet Speed",
+                    amount = "0.25% more",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

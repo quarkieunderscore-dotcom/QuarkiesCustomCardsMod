@@ -9,10 +9,14 @@ using UnityEngine;
 
 namespace QuarkiesCards.Cards
 {
-    class Template : CustomCard
+    class HeavyBullets : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            gun.projectileSize *= 1.20f;
+            gun.gravity *= 1.15f;
+            gun.damage *= 1.10f;
+
             UnityEngine.Debug.Log($"[{QuarkiesCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -26,11 +30,11 @@ namespace QuarkiesCards.Cards
 
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Heavy Bullets";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Really chunky bullets";
         }
         protected override GameObject GetCardArt()
         {
@@ -46,11 +50,19 @@ namespace QuarkiesCards.Cards
             {
                 new CardInfoStat()
                 {
+                    positive = false,
+                    stat = "heavyness",
+                    amount = "20% more",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+                new CardInfoStat()
+                {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "damage",
+                    amount = "10% more",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
+
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()

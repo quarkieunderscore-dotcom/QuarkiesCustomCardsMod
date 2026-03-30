@@ -9,10 +9,11 @@ using UnityEngine;
 
 namespace QuarkiesCards.Cards
 {
-    class Template : CustomCard
+    class Slow : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            gun.projectileSpeed *= 0.75f;
             UnityEngine.Debug.Log($"[{QuarkiesCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -26,11 +27,11 @@ namespace QuarkiesCards.Cards
 
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Mentally Slow";
         }
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Why?";
         }
         protected override GameObject GetCardArt()
         {
@@ -46,16 +47,16 @@ namespace QuarkiesCards.Cards
             {
                 new CardInfoStat()
                 {
-                    positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    positive = false,
+                    stat = "Bullet Speed",
+                    amount = "0.25% less",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
         }
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.DefensiveBlue;
         }
         public override string GetModName()
         {

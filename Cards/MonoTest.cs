@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
+using QuarkiesCards.Cards;
+using QuarkiesCards.MonoBehaviours;
 
 namespace QuarkiesCards.Cards
 {
-    class Template : CustomCard
+    class MonoTest : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            gun.gravity = -1f;
+            gun.drag = 0.99f;
+            GameObject empty = new GameObject("UpScript");
+            empty.AddComponent<Up>();
+            gun.objectsToSpawn[1].effect = empty;
+            gun.objectsToSpawn[1].spawnAsChild = true;
+                        
             UnityEngine.Debug.Log($"[{QuarkiesCards.ModInitials}][Card] {GetTitle()} has been setup.");
         }
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
